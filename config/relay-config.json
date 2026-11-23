@@ -1,1 +1,96 @@
-{"accounts":{"chatgpt":{"account":"pejuang","note":"ChatGPT is consulted via the Muse browser (chatgpt.com). No API key is stored in this repo."},"github":{"account":"p8317446-rgb","repo":"p8317446-rgb/makefun-global-relay"},"makefun":{"handle":"@pejuang","user_id":"01a1f6af-b357-753f-83b8-3a14b4bb8f84","wallet":"9vpQBvFGqVki1SgnzTb1dAJr3ozzWSE4rvYtk8FBtie1"}},"folders":{"evaluations":"evaluations/","logs":"logs/","submissions":{"drafts":"submissions/drafts/","revisions":"submissions/revisions/"},"tasks":{"active":"tasks/active/","completed":"tasks/completed/","incoming":"tasks/incoming/"}},"monitoring":{"cadence_minutes":60,"dedupe_key":"slug","record_fields":["slug","title","deadline","criteria","reward","rules","url"],"source":"https://make.fun/api/competitions"},"permissions":{"automatic":["monitoring","research","analysis","drafting","coding","audit","revision","version_storage"],"needs_owner_approval":["final_submission","account_security_change","purchase_or_transaction","sensitive_or_irreversible_action"]},"relay":{"created":"2026-11-24","description":"Global work relay connecting Muse, ChatGPT, GitHub, and make.fun.","name":"makefun-global-relay","owner":"@pejuang","version":"1.1.0"},"status":{"active":false,"chatgpt":"ok","github":"ok","last_tested":"2026-11-24T04:00:00+07:00","monitoring":"active","muse":"ok","note":"GitHub verified (43 packets on main). Monitoring cron makefun-relay-intake verified enabled, Asia/Jakarta, 1h, first run 04:07 WIB. ChatGPT connection test passed 03:59 WIB (conversation 'Tes Relay Pertama'); 3 priority packets sent for analysis (hidden-spec-cli-01, site-generator-speed-01, news-image-20261124). Do not set active=true until an end-to-end test (intake -> triage -> research -> strategy -> draft -> review) has passed."},"workflow":{"max_revision_cycles":5,"stages":["intake","triage","research","strategy","draft","review","revision","re-evaluation"],"stop_when":"quality stops improving or 5 revision cycles used"}}
+{
+  "accounts": {
+    "chatgpt": {
+      "account": "pejuang",
+      "note": "Automatic transport uses OpenAI Responses API via GitHub Actions; browser ChatGPT is manual fallback only."
+    },
+    "github": {
+      "account": "p8317446-rgb",
+      "repo": "p8317446-rgb/makefun-global-relay"
+    },
+    "makefun": {
+      "handle": "@pejuang",
+      "user_id": "01a1f6af-b357-753f-83b8-3a14b4bb8f84",
+      "wallet": "9vpQBvFGqVki1SgnzTb1dAJr3ozzWSE4rvYtk8FBtie1"
+    }
+  },
+  "folders": {
+    "evaluations": "evaluations/",
+    "logs": "logs/",
+    "submissions": {
+      "drafts": "submissions/drafts/",
+      "revisions": "submissions/revisions/"
+    },
+    "tasks": {
+      "active": "tasks/active/",
+      "completed": "tasks/completed/",
+      "incoming": "tasks/incoming/"
+    }
+  },
+  "monitoring": {
+    "cadence_minutes": 60,
+    "dedupe_key": "slug",
+    "record_fields": [
+      "slug",
+      "title",
+      "deadline",
+      "criteria",
+      "reward",
+      "rules",
+      "url"
+    ],
+    "source": "https://make.fun/api/competitions"
+  },
+  "permissions": {
+    "automatic": [
+      "monitoring",
+      "research",
+      "analysis",
+      "drafting",
+      "coding",
+      "audit",
+      "revision",
+      "version_storage"
+    ],
+    "needs_owner_approval": [
+      "final_submission",
+      "account_security_change",
+      "purchase_or_transaction",
+      "sensitive_or_irreversible_action"
+    ]
+  },
+  "relay": {
+    "created": "2026-11-24",
+    "description": "Global work relay connecting Muse, ChatGPT, GitHub, and make.fun.",
+    "name": "makefun-global-relay",
+    "owner": "@pejuang",
+    "version": "1.2.0",
+    "transport": "openai-responses-api-via-github-actions",
+    "request_dir": "relay/requests/",
+    "response_dir": "relay/responses/",
+    "api_setup_required": true
+  },
+  "status": {
+    "active": false,
+    "chatgpt": "pending_api_secret_and_e2e_test",
+    "github": "ok",
+    "last_tested": "2026-11-24T04:00:00+07:00",
+    "monitoring": "active",
+    "muse": "ok",
+    "note": "Workflow and protocol committed. API activation pending owner adds OPENAI_API_KEY secret and OPENAI_MODEL variable, then an end-to-end request/response test passes. Do not set active=true before Muse consumes a real response."
+  },
+  "workflow": {
+    "max_revision_cycles": 5,
+    "stages": [
+      "intake",
+      "triage",
+      "research",
+      "strategy",
+      "draft",
+      "review",
+      "revision",
+      "re-evaluation"
+    ],
+    "stop_when": "quality stops improving or 5 revision cycles used"
+  }
+}
