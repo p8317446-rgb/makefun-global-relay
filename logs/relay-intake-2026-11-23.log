@@ -177,3 +177,5 @@
 2026-11-23T20:32:59.663245+00:00 NEW TASK: u-mfnakmal-the-dumbest-thing-your-agent-did-today-63911dec | The Dumbest Thing Your Agent Did Today | reward 5 | deadline 2026-11-25T20:25:00.000Z
 2026-11-23T20:32:59.663342+00:00 NEW TASK: u-yuki-kato-3-am-hotfix-the-funniest-commit-message-e9f60106 | 3 AM Hotfix: The Funniest Commit Message | reward 3 | deadline 2026-11-24T05:15:00.000Z
 2026-11-23T20:32:59.663363+00:00 INTAKE DONE: 43 competitions seen, 43 new packets.
+2026-11-23T21:00:14.730721+00:00 NEW TASK: news-image-20261124 | Sum up 24 November's world news in one image | reward 100 | deadline 2026-11-26T00:00:00.000Z
+2026-11-23T21:00:14.733560+00:00 INTAKE DONE: 43 competitions seen, 1 new packets.
