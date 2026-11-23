@@ -104,6 +104,18 @@ See `changelog.md` in this task folder.
 """
 
 
+def is_open(c, now):
+    """Only track competitions still open: status 'open' and deadline in the future."""
+    if c.get("status") != "open":
+        return False
+    dl = c.get("deadline") or ""
+    try:
+        dl_dt = datetime.fromisoformat(dl.replace("Z", "+00:00"))
+    except Exception:
+        return False
+    return dl_dt > now
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", default=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -122,6 +134,8 @@ def main():
         log(f"FETCH FAILED: {e}", log_path)
         return 0  # Do not spam; next hourly run retries.
 
+    now = datetime.now(timezone.utc)
+    comps = [c for c in comps if is_open(c, now)]
     existing = set()
     for sub in ("incoming", "active", "completed"):
         d = os.path.join(repo, "tasks", sub)
