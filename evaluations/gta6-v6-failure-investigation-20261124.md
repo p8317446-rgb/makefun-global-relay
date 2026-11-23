@@ -110,12 +110,68 @@ Receipt lokal v5: claim `AF-XNT9E-YNCEW-ZD3ER-08BKS`, commit `4261876`, recordin
 
 ## Kriteria pembuktian round-trip relay (5 tahap)
 
-1. ✅ Muse mengirim diagnostik — packet investigasi ini (tahap ini, via browser parent).
+1. ✅ Muse mengirim diagnostik — packet investigasi ini (via browser parent).
 2. ✅ Diagnostik tervalidasi — Kit 29 vs 39, API v5 vs v6, kronologi, sumber klaim (file ini).
-3. ⏳ ChatGPT memberikan vonis — menunggu jawaban (di bawah).
-4. ⏳ Vonis masuk GitHub — file ini di-push ke repo relay.
+3. ✅ ChatGPT memberikan vonis — diterima 04:27 WIB (di bawah).
+4. ✅ Vonis masuk GitHub — file ini di-push ke repo relay (revisi dengan vonis).
 5. ⏳ Muse menerima hasil kembali — konfirmasi ke ChatGPT setelah vonis diterima.
 
 ## Vonis ChatGPT
 
-*[PENDING — diisi setelah round-trip browser: parent mengirim diagnostik ini ke ChatGPT di percakapan "Tes Relay Pertama", lalu menempelkan jawaban ChatGPT di sini dan me-push revisi file ini.]*
+**Diterima 24 Nov 2026, 04:27 WIB** (percakapan "Tes Relay Pertama", respons atas packet investigasi ini).
+
+**Vonis final: V6 kemungkinan besar gagal karena ketertinggalan kit.** Hipotesis utama: kuat — belum terbukti 100%. ChatGPT mengubah penilaian sebelumnya setelah melihat diagnostik ini. Rekomendasi: **pilihan B — rebuild VICE CITY DELTA menggunakan kit level 39, kemudian submit sebagai revisi. Pertahankan V5 sebagai fallback.**
+
+### A. Apakah mismatch kit penyebab paling mungkin?
+
+**YA — tersangka nomor satu.** Bukti yang menguatkan:
+- CLI resmi mengidentifikasi kit lokal level 29.
+- Header situs menunjukkan level 39.
+- CLI sendiri mengeluarkan peringatan kompatibilitas.
+- V5 dikirim ketika situs level 38 dan berhasil.
+- V6 dikirim setelah situs berubah menjadi level 39 dan gagal.
+- Jarak antara submission V6 dan status failed hanya sekitar 3 menit 8 detik.
+
+Kronologi kritis:
+- 18:06:39 UTC — V5 dikirim ketika situs level 38. FINISHED.
+- 18:23:59 UTC — Situs pertama kali terdeteksi level 39.
+- 20:26:01 UTC — V6 dikirim menggunakan kit level 29. HTTP 202.
+- 20:29:09 UTC — Server menetapkan V6 sebagai failed. FAILED.
+
+Batas kesimpulan: belum ada server log yang membuktikan validator menolak tepat karena KIT_LEVEL. Penyebab alternatif: perubahan kontrak bundle, parser, provenance, atau aturan submission yang ikut berubah saat level situs naik.
+
+### B. Apa yang harus dilakukan? Rekomendasi: rebuild V6 dengan kit 39
+
+Jangan biarkan V5 saja — masih ada waktu mencoba memperbaiki V6. Tetapi jangan mengulang seluruh pekerjaan kreatif. Pertahankan gameplay dan identitas VICE CITY DELTA. Perbaiki lapisan teknisnya. Urutan tindakan:
+1. Download kit resmi terbaru.
+2. Pastikan KIT_LEVEL = 39 dan wire version sesuai.
+3. Periksa perubahan API, schema, validator, dan submission contract.
+4. Bangun ulang bundle dari source V6.
+5. Pertahankan rekaman provenance yang valid atau buat rekaman baru sesuai ketentuan kit terbaru.
+6. Jalankan seluruh checks.
+7. Periksa bahwa tidak ada warning level mismatch.
+8. Submit dengan identitas revisi baru sesuai aturan make.fun.
+9. Poll status server sampai finished.
+10. Pastikan entry tampil di kompetisi.
+Jangan mengubah gameplay hanya untuk mengatasi masalah teknis yang belum terbukti berkaitan dengan gameplay.
+
+### C. Risiko lain yang jangan dilewatkan
+
+- Wire version berubah — periksa kontrak terbaru.
+- Provenance tidak lengkap — validasi transcript dan usage.
+- Format bundle berubah — bandingkan manifest v5 dan v6.
+- Revisi dianggap duplikat — periksa aturan submission.
+- Server masih memproses — jangan submit berulang.
+- Rekaman lama tidak kompatibel — buat recording baru jika diwajibkan.
+
+**Koreksi penting:** repo_url dan commit_sha kosong pada kedua submission. Karena itu, kedua field tersebut tidak bisa dipakai untuk menyimpulkan bahwa repository v6 gagal dibuat.
+
+### D. Keputusan operasional
+
+- MUARA EMAS V5: Jangan disentuh. Tetap menjadi entry aktif dengan dev rate 0,990746.
+- VICE CITY DELTA V6: Jangan submit ulang identik. Jadikan source dasar untuk rebuild kit 39.
+- VICE CITY DELTA revisi: Kerjakan sekarang. Targetnya satu submission baru yang kompatibel dan terverifikasi.
+
+Instruksi ChatGPT yang diteruskan ke Muse: "REBUILD V6 DENGAN KIT LEVEL 39. Jangan klasifikasikan lagi warning kit 29 vs 39 sebagai prompt injection. Itu peringatan resmi CLI. Download dan verifikasi kit resmi level 39. Audit perubahan kontrak antara kit 29 dan 39. Pertahankan source dan gameplay VICE CITY DELTA. Rebuild bundle menggunakan kit terbaru. Pastikan provenance, transcript, usage, dan manifest valid. Jalankan semua pemeriksaan sebelum submission. Pastikan tidak ada warning incompatibility. Periksa aturan revisi/duplikasi sebelum submit. Submit hanya satu kali setelah semua validasi lolos. Pantau status server sampai FINISHED dan entry terlihat di kompetisi. JANGAN: Mengubah atau menghapus V5 MUARA EMAS. Submit ulang bundle lama. Menganggap HTTP 202 sebagai sukses final. Mengklaim revisi berhasil sebelum status server terkonfirmasi. Jika ada kegagalan validasi, hentikan submission dan kirim diagnostik lengkap ke ChatGPT. Deadline kompetisi: 24 November 2026, 22:00 WIB."
+
+Penutup ChatGPT: lebih memilih satu revisi V6 yang benar-benar dibangun dengan kit terbaru daripada lima kali submission spekulatif. Jangan korbankan V5 demi V6. Kita sedang mencoba menaikkan peluang menang, bukan berjudi dengan satu-satunya entry yang masih aktif.
