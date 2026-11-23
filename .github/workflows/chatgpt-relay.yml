@@ -89,7 +89,7 @@ jobs:
       - name: Commit responses
         run: |
           set -euo pipefail
-          if git diff --quiet -- relay/responses; then
+          if ! git status --porcelain -- relay/responses | grep -q .; then
             echo "No new responses to commit."
             exit 0
           fi
