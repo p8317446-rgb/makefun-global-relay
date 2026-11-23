@@ -7,7 +7,7 @@ Global work relay connecting **Muse**, **ChatGPT**, **GitHub**, and **make.fun**
 A relay, not a dashboard. It moves work through a fixed loop:
 
 ```
-Intake → Analysis → Strategy → Draft → Review → Revision → Re-evaluation
+Intake → Triage → Research → Strategy → Draft → Review → Revision → Re-evaluation
 ```
 
 - **Muse** is the task monitor and intake agent. It watches make.fun, detects new bounties/tasks, records deadline, judging criteria, reward, rules, and URL, avoids duplicates, and hands each new task to ChatGPT.
@@ -26,8 +26,11 @@ Intake → Analysis → Strategy → Draft → Review → Revision → Re-evalua
 | `templates/task-packet.md` | Template for a new task packet |
 | `templates/review-scorecard.md` | Template for a review / evaluation scorecard |
 | `templates/changelog.md` | Template for a per-task changelog |
-| `tasks/` | One folder per task (packet + drafts + revisions) |
-| `submissions/` | Receipts and records of submitted entries |
+| `tasks/incoming/` | New task packets awaiting triage |
+| `tasks/active/` | Tasks in progress (packet + research + drafts + revisions) |
+| `tasks/completed/` | Finished or closed tasks |
+| `submissions/drafts/` | Receipts and records of draft submissions |
+| `submissions/revisions/` | Receipts and records of revised submissions |
 | `evaluations/` | Scorecards and verdicts |
 | `logs/` | Relay run logs |
 

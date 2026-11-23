@@ -109,7 +109,7 @@ def main():
     ap.add_argument("--repo", default=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     args = ap.parse_args()
     repo = args.repo
-    tasks_dir = os.path.join(repo, "tasks")
+    tasks_dir = os.path.join(repo, "tasks", "incoming")
     logs_dir = os.path.join(repo, "logs")
     os.makedirs(tasks_dir, exist_ok=True)
     os.makedirs(logs_dir, exist_ok=True)
@@ -122,7 +122,11 @@ def main():
         log(f"FETCH FAILED: {e}", log_path)
         return 0  # Do not spam; next hourly run retries.
 
-    existing = {d for d in os.listdir(tasks_dir) if os.path.isdir(os.path.join(tasks_dir, d))}
+    existing = set()
+    for sub in ("incoming", "active", "completed"):
+        d = os.path.join(repo, "tasks", sub)
+        if os.path.isdir(d):
+            existing |= {x for x in os.listdir(d) if os.path.isdir(os.path.join(d, x))}
     new_count = 0
     for c in comps:
         slug = c.get("slug", "")
